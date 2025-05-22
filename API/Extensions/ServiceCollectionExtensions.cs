@@ -19,6 +19,10 @@ namespace SCT.API.Extensions
 
             services.AddScoped<IEmailTemplateService, EmailTemplateService>();
             services.AddScoped<IEmailRepository, EmailRepository>();
+
+            services.AddScoped<IContactUsRepository, ContactUsRepository>();
+            services.AddScoped<IContactUsService, ContactUsService>();
+
             //return services;
         }
     }

@@ -14,5 +14,6 @@ namespace SCT.Domain.Entities
         public string? Token { get; set; }
         public string? Message { get; set; }
         public Guid? UserId { get; set; } = Guid.NewGuid();
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }

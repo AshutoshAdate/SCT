@@ -23,13 +23,13 @@ namespace SCT.Application.Services
             _mailHelper = mailHelper;
         }
 
-        public async Task<IEnumerable<UserResponseDTO>> GetAllAsync()
+        public async Task<IEnumerable<UserResponseDTO>> GetAllAsync(CancellationToken cancellationToken)
         {
-            var users = await _userRepository.GetAllAsync();
+            var users = await _userRepository.GetAllAsync(cancellationToken);
             return _mapper.Map<IEnumerable<UserResponseDTO>>(users);
         }
 
-        public async Task<UserRegistrationResponseDTO> RegisterUser(UserRegistrationRequestDTO requestDTO)
+        public async Task<UserRegistrationResponseDTO> RegisterUser(UserRegistrationRequestDTO requestDTO, CancellationToken cancellationToken)
         {
             var hashedPassword = _authHelper.HashPassword(requestDTO.Password);
             var reqDto = new UserRegistrationRequestDTO
@@ -44,20 +44,20 @@ namespace SCT.Application.Services
             var userEntity = _mapper.Map<User>(reqDto);
 
             // Save to database
-            var createdUser = await _userRepository.RegisterUserAsync(userEntity);
+            var createdUser = await _userRepository.RegisterUserAsync(userEntity,cancellationToken);
 
             //send mail to user
-            await _mailHelper.SendMailAsync(createdUser.Email, "Welcome to SCT", "user created");
+            //await _mailHelper.SendMailAsync(createdUser.Email, "Welcome to SCT", "user created");
             // Map Entity back to Response DTO
             return _mapper.Map<UserRegistrationResponseDTO>(createdUser);
         }
 
-        public async Task<UserLoginResponseDTO> LoginUser(UserLoginRequestDTO requestDTO)
+        public async Task<UserLoginResponseDTO> LoginUser(UserLoginRequestDTO requestDTO, CancellationToken cancellationToken)
         {
             //check user if exists
 
             var userEntity = _mapper.Map<User>(requestDTO);
-            var user = await _userRepository.CheckUserExists(userEntity);
+            var user = await _userRepository.CheckUserExists(userEntity, cancellationToken);
 
             if (user == null)
             {

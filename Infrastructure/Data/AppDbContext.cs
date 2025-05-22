@@ -10,5 +10,6 @@ namespace SCT.Infrastructure.Data
 
         public DbSet<User> users { get; set; }
         public DbSet<EmailTemplate> emailTemplates { get; set; }
+        public DbSet<UserContactUs> userContactUs { get; set; }
     }
 }

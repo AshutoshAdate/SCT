@@ -17,24 +17,24 @@ namespace SCT.API.Controllers.UserControllers
 
         [Authorize]
         [HttpGet("getallusers")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
-            var users = await _userService.GetAllAsync();
+            var users = await _userService.GetAllAsync(cancellationToken);
             return users == null ? NotFound() : Ok(users);
         }
 
         [HttpPost("registerUser")]
-        public async Task<ActionResult> RegisterUser([FromBody] UserRegistrationRequestDTO requestDTO)
+        public async Task<ActionResult> RegisterUser([FromBody] UserRegistrationRequestDTO requestDTO,CancellationToken cancellationToken)
         {
-            var user = await _userService.RegisterUser(requestDTO);
+            var user = await _userService.RegisterUser(requestDTO, cancellationToken);
             return user == null ? NotFound() : Ok(user);
         }
 
         [HttpPost("login")]
 
-        public async Task<ActionResult> Login([FromBody] UserLoginRequestDTO userLoginRequestDTO)
+        public async Task<ActionResult> Login([FromBody] UserLoginRequestDTO userLoginRequestDTO,CancellationToken cancellationToken)
         {
-            var loginDetails = await _userService.LoginUser(userLoginRequestDTO);
+            var loginDetails = await _userService.LoginUser(userLoginRequestDTO, cancellationToken);
             return loginDetails == null ? NotFound() : Ok(loginDetails);
         }
     }

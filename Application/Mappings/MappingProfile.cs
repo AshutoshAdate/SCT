@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SCT.Application.DTOs.UserContactUsDTOs;
 using SCT.Application.DTOs.UserDTOs;
 using SCT.Domain.Entities;
 
@@ -14,6 +15,10 @@ namespace SCT.Application.Mappings
             CreateMap<User, UserRegistrationRequestDTO>().ReverseMap();
 
             CreateMap<User, UserLoginRequestDTO>().ReverseMap();
+
+            CreateMap<UserContactUs, ContactUsRequestDTO>().ReverseMap();
+            CreateMap<UserContactUs, ContactUsResponseDTO>().ReverseMap();
+
         }
     }
 }

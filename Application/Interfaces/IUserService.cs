@@ -4,8 +4,8 @@ namespace SCT.Application.Interfaces
 {
     public interface IUserService
     {
-        Task<IEnumerable<UserResponseDTO>> GetAllAsync();
-        Task<UserRegistrationResponseDTO> RegisterUser(UserRegistrationRequestDTO requestDTO);
-        Task<UserLoginResponseDTO> LoginUser(UserLoginRequestDTO requestDTO);
+        Task<IEnumerable<UserResponseDTO>> GetAllAsync(CancellationToken cancellationToken);
+        Task<UserRegistrationResponseDTO> RegisterUser(UserRegistrationRequestDTO requestDTO, CancellationToken cancellationToken);
+        Task<UserLoginResponseDTO> LoginUser(UserLoginRequestDTO requestDTO, CancellationToken cancellationToken);
     }
 }
