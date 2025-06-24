@@ -1,0 +1,10 @@
+bin/
+obj/
+*.user
+*.suo
+*.log
+.vscode/
+*.db
+appsettings.Development.json
+loadTest.js
+.vs/

@@ -3,19 +3,30 @@ using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using SCT.Application.Helper.EmailTemplate;
+using SCT.Domain.Entities.EmailService;
+using System.Collections.Concurrent;
 namespace SCT.Application.Helper.SMTP
 {
     public class MailHelper : IMailHelper
     {
         private readonly EmailSettings _settings;
         private readonly IEmailTemplateService _emailTemplateService;
-
+        private readonly ConcurrentQueue<EmailRequest> _emails = new();
         public MailHelper(IOptions<EmailSettings> settings, IEmailTemplateService emailTemplateService)
         {
             _settings = settings.Value;
             _emailTemplateService = emailTemplateService;
         }
 
+        public void EnqueueEmail(EmailRequest email)
+        {
+            _emails.Enqueue(email);
+        }
+
+        public bool TryDequeue(out EmailRequest email)
+        {
+            return _emails.TryDequeue(out email);
+        }
         public async Task SendMailAsync(string toMail, string subject, string body)
         {
             try

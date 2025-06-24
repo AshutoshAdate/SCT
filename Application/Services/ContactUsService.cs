@@ -25,5 +25,11 @@ namespace SCT.Application.Services
             var Response = await _contactUsRepository.AddUserContactAsync(userContactEntity, cancellationToken);
             return _mapper.Map<ContactUsResponseDTO>(Response);
         }
+
+        public async Task<IEnumerable<ContactsResponseDTO>> GetAllContactDetails(CancellationToken cancellationToken)
+        {
+            var response = await _contactUsRepository.getAllAsync(cancellationToken);
+            return _mapper.Map<IEnumerable<ContactsResponseDTO>>(response);
+        }
     }
 }

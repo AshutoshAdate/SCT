@@ -4,6 +4,6 @@
     {
         string HashPassword(string plainPassword);
         bool VerifyPassword(string plainPassword, string hashedPassword);
-        string GenerateToken(string username, string password);
+        string GenerateToken(string username, string password, string role);
     }
 }

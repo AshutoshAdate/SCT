@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SCT.Application.Helper.EmailTemplate;
 using SCT.Domain.Entities;
+using SCT.Domain.Entities.EmailService;
 
 namespace SCT.Infrastructure.Data
 {
@@ -11,5 +12,6 @@ namespace SCT.Infrastructure.Data
         public DbSet<User> users { get; set; }
         public DbSet<EmailTemplate> emailTemplates { get; set; }
         public DbSet<UserContactUs> userContactUs { get; set; }
+        public DbSet<EmailRequest> EmailRequests { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace SCT.API.Controllers.UserControllers
             _userService = userService;
         }
 
-        [Authorize]
+        [Authorize(Roles ="admin")]
         [HttpGet("getallusers")]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {

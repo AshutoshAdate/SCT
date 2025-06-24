@@ -11,6 +11,9 @@ namespace SCT.Application.DTOs.UserContactUsDTOs
         [Required]
         [EmailAddress(ErrorMessage = "Invalid email address format.")]
         public string? ContactEmail { get; init; }
+
+        public string? Contact { get; init; }
+
         public string? ContactMessage { get; init; }
     }
 }

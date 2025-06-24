@@ -44,10 +44,14 @@ namespace SCT.Application.Services
             var userEntity = _mapper.Map<User>(reqDto);
 
             // Save to database
-            var createdUser = await _userRepository.RegisterUserAsync(userEntity,cancellationToken);
+            var createdUser = await _userRepository.RegisterUserAsync(userEntity, cancellationToken);
 
             //send mail to user
-            //await _mailHelper.SendMailAsync(createdUser.Email, "Welcome to SCT", "user created");
+            _ = Task.Run(async () =>
+            {
+                await _mailHelper.SendMailAsync(createdUser.Email, "Welcome to SCT", "user created");
+            });
+
             // Map Entity back to Response DTO
             return _mapper.Map<UserRegistrationResponseDTO>(createdUser);
         }
@@ -75,7 +79,7 @@ namespace SCT.Application.Services
                     Message = "Invalid User/Not Found"
                 };
             }
-            var Token = _authHelper.GenerateToken(requestDTO.UserName, requestDTO.Password);
+            var Token = _authHelper.GenerateToken(requestDTO.UserName, requestDTO.Password, user.Role);
 
             return new UserLoginResponseDTO
             {

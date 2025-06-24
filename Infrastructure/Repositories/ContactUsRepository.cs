@@ -1,4 +1,5 @@
-﻿using SCT.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SCT.Domain.Entities;
 using SCT.Domain.Interfaces;
 using SCT.Infrastructure.Data;
 
@@ -20,5 +21,9 @@ namespace SCT.Infrastructure.Repositories
             return response.Entity;
         }
 
+        public async Task<IEnumerable<UserContactUs>> getAllAsync(CancellationToken cancellationToken)
+        {
+            return await _context.userContactUs.AsNoTracking().ToListAsync();
+        }
     }
 }

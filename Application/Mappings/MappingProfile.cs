@@ -19,6 +19,9 @@ namespace SCT.Application.Mappings
             CreateMap<UserContactUs, ContactUsRequestDTO>().ReverseMap();
             CreateMap<UserContactUs, ContactUsResponseDTO>().ReverseMap();
 
+            CreateMap<UserContactUs, ContactsResponseDTO>().ReverseMap();
+
+
         }
     }
 }

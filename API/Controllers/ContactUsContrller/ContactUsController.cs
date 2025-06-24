@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SCT.Application.DTOs.UserContactUsDTOs;
 using SCT.Application.Interfaces;
 
@@ -22,6 +23,16 @@ namespace SCT.API.Controllers.ContactUsContrller
 
             return response == null ? NoContent() : Ok(response);
         }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet("getallcontactdetails")]
+        public async Task<IActionResult> getAllContactsDetails(CancellationToken cancellationToken)
+        {
+            var response = await _contactUsService.GetAllContactDetails(cancellationToken);
+            return response == null ? NoContent() : Ok(response);
+
+        }
+
 
     }
 }

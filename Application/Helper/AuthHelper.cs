@@ -24,17 +24,19 @@ namespace SCT.Application.Helper
             return BCrypt.Net.BCrypt.Verify(plainPassword, hashedPassword);
         }
 
-        public string GenerateToken(string username, string password)
+        public string GenerateToken(string username, string password, string role)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]!);
 
+            var claims = new[] {
+                new Claim(ClaimTypes.Name, username),
+                new Claim(ClaimTypes.Role, role),
+            };
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[]
-                {
-            new Claim(ClaimTypes.Name, username,password)
-                }),
+                Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddMinutes(60),
                 Issuer = _configuration["JwtSettings:Issuer"],
                 Audience = _configuration["JwtSettings:Audience"],

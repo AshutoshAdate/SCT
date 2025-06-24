@@ -13,6 +13,7 @@ namespace SCT.Domain.Entities
         public string? PhoneNumber { get; set; }
         public string? Token { get; set; }
         public string? Message { get; set; }
+        public string? Role { get; set; }
         public Guid? UserId { get; set; } = Guid.NewGuid();
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
